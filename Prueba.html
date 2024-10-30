@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laberinto Digital</title>
+    <style>
+        /* General */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #e0e0e0 0%, #cfcfcf 100%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            color: #5a5a5a;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            display: none;
+            padding: 10px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 15px 5px;
+            padding: 10px 25px;
+            font-size: 16px;
+            color: #ffffff;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .correct {
+            background: #8a9ba8;
+        }
+
+        .incorrect {
+            background: #b0b0b0;
+        }
+
+        .question h2 {
+            color: #4a4a4a;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .question p {
+            color: #666;
+        }
+
+        /* Mensaje de felicitaciones */
+        #congratulations h2 {
+            color: #5a5a5a;
+            font-size: 2em;
+        }
+
+        #congratulations p {
+            font-size: 1.2em;
+            color: #8a9ba8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Literacidad Digital</h1>
+        <p>Responde las preguntas para avanzar por el laberinto.</p>
+
+        <!-- Sala 1 -->
+        <div class="question active" id="question1">
+            <h2>Sala 1: Detecta la noticia falsa</h2>
+            <p>¿Cuál de las siguientes noticias crees que es falsa?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 1)">Alienígenas fueron vistos en Tampico.</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 1)">Un nuevo estudio muestra que las zanahorias ayudan a mejorar la visión.</button>
+        </div>
+
+        <!-- Sala 2 -->
+        <div class="question" id="question2">
+            <h2>Sala 2: Fuente confiable</h2>
+            <p>¿Cuál de estos sitios parece ser más confiable?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 2)">www.enciclopediaeducativa.com</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 2)">www.noticias-extraterrestres-verdaderas.com</button>
+        </div>
+
+        <!-- Sala 3 -->
+        <div class="question" id="question3">
+            <h2>Sala 3: Uso ético de imágenes</h2>
+            <p>¿De dónde es más seguro tomar imágenes para tus clases?</p>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 3)">Buscar en Google y tomar cualquier imagen</button>
+            <button class="button correct" onclick="checkAnswer('correct', 3)">Usar un banco de imágenes gratuitas como Unsplash</button>
+        </div>
+
+
+        <!-- Sala 5 -->
+        <div class="question" id="question5">
+            <h2>Sala 4: Evaluación de Fuentes</h2>
+            <p>¿Cómo sabes si una fuente en Internet es confiable?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 5)">Revisando el autor y comparando con otras fuentes confiables</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 5)">Si tiene imágenes llamativas es confiable</button>
+        </div>
+
+        <!-- Sala 6 -->
+        <div class="question" id="question6">
+            <h2>Sala 5: Seguridad en Internet</h2>
+            <p>¿Cuál es una buena práctica para proteger tu privacidad en línea?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 6)">Usar contraseñas fuertes y únicas</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 6)">Publicar toda tu información personal en redes</button>
+        </div>
+
+        <!-- Sala 7 -->
+        <div class="question" id="question7">
+            <h2>Sala 6: Detectando Publicidad</h2>
+            <p>¿Cómo identificar un anuncio en una página web?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 7)">Buscar etiquetas como "Patrocinado"</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 7)">Si el contenido no tiene imágenes llamativas</button>
+        </div>
+
+        <!-- Sala 8 -->
+        <div class="question" id="question8">
+            <h2>Sala 7: Reconociendo Plagio</h2>
+            <p>¿Cuál de estas opciones es un ejemplo de plagio?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 8)">Copiar y pegar sin mencionar al autor</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 8)">Leer y escribir en tus propias palabras</button>
+        </div>
+
+        <!-- Sala 9 -->
+        <div class="question" id="question9">
+            <h2>Sala 8: Uso de Imágenes</h2>
+            <p>¿Qué debes hacer antes de usar una imagen de Internet?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 9)">Verificar derechos de autor o licencia de uso</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 9)">Usarla libremente si aparece en Google</button>
+        </div>
+
+        <!-- Sala 10 -->
+        <div class="question" id="question10">
+            <h2>Sala 9: Sitios Web Falsos</h2>
+            <p>¿Qué señal indica que un sitio web es fraudulento?</p>
+            <button class="button correct" onclick="checkAnswer('correct', 10)">La URL tiene errores ortográficos</button>
+            <button class="button incorrect" onclick="checkAnswer('incorrect', 10)">Tiene enlaces a otros artículos</button>
+        </div>
+
+        <!-- Felicitaciones -->
+        <div class="question" id="congratulations">
+            <h2>¡Felicidades!</h2>
+            <p>Has completado el laberinto digital. ¡Eres un experto en literacidad digital!</p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(answer, questionNumber) {
+            if (answer === 'correct') {
+                alert("¡Correcto! Avanzas a la siguiente sala.");
+                document.getElementById(`question${questionNumber}`).classList.remove("active");
+
+                // Si es la última pregunta, mostrar mensaje final
+                if (questionNumber < 10) {
+                    document.getElementById(`question${questionNumber + 1}`).classList.add("active");
+                } else {
+                    document.getElementById("congratulations").classList.add("active");
+                }
+            } else {
+                alert("Respuesta incorrecta, intenta de nuevo.");
+
+    }
+        }
+    </script>
+</body>
+</html>
